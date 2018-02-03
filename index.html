@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+  <head>
+
+  </head>
+  <body>
+    <script>
+      function computerPlay() {
+        let pick = Math.floor(Math.random() * 3);
+        if (pick === 0) return 'rock';
+        else if (pick === 1) return 'paper';
+        else return 'scissors';
+      }
+
+      function playRound(playerMove, computerMove) {
+        playerMove = playerMove.toLowerCase();
+        computerMove = computerMove.toLowerCase();
+        let outcome;
+        if (playerMove === 'rock') {
+          switch (computerMove) {
+            case 'rock':
+              outcome = 'draw'
+              break;
+            case 'paper':
+              outcome = 'lose'
+              break;
+            default:
+              outcome = 'win'
+              break;
+          }
+        } else if (playerMove === 'paper') {
+          switch (computerMove) {
+            case 'rock':
+              outcome = 'win'
+              break;
+            case 'paper':
+              outcome = 'draw'
+              break;
+            default:
+              outcome = 'lose'
+              break;
+            }
+        } else {
+          switch (computerMove) {
+            case 'rock':
+              outcome = 'lose'
+              break;
+            case 'paper':
+              outcome = 'win'
+              break;
+            default:
+              outcome = 'draw'
+              break;
+          }
+        }
+      return outcome;
+      }
+
+      function game() {
+        let playerScore = 0;
+        let computerScore = 0;
+        for (let i = 0; i < 5; i++) {
+          let playerMove = prompt('Choose rock, paper, or scissors:')
+          let computerMove = computerPlay()
+          if (playRound(playerMove, computerMove) === 'win') {
+            console.log(`You win! ${playerMove[0].toUpperCase() + playerMove.substring(1)} beats ${computerMove}.`);
+            playerScore++;
+          } else if (playRound(playerMove, computerMove) === 'lose') {
+            console.log(`You lose! ${computerMove[0].toUpperCase() + computerMove.substring(1)} beats ${playerMove}.`);
+            computerScore++;
+          } else {
+            console.log(`It's a draw! You both chose ${playerMove}.`);
+          }
+        }
+        if (playerScore > computerScore) {
+          console.log("You win the match!");
+        } else if (computerScore > playerScore) {
+          console.log("You lose the match!");
+        } else {
+          console.log("The match was a draw!")
+        }
+      }
+
+      game()
+
+    </script>
+  </body>
+</html>
