@@ -1,0 +1,49 @@
+* {
+  font-family: sans-serif;
+}
+
+body {
+  background: #8db;
+  padding-top: 10rem;
+}
+
+div {
+  text-align: center;
+  margin: 10vw;
+}
+
+.gameContainer {
+  margin: 0 20vw;
+  font-size: 2vw;
+}
+#playerScore {
+  position: absolute;
+  left: 20vw;
+}
+#computerScore {
+  position: absolute;
+  right: 20vw;
+}
+#playerScoreNumber, #computerScoreNumber {
+  font-size: 3vw;
+}
+
+.buttonContainer {
+  margin: 0 auto;
+}
+.buttonContainer > button {
+  font-size: 2vw;
+  margin: 2vw 0.5vw;
+}
+
+#roundOutcome {
+  display: block;
+  text-align: center;
+  font-size: 2vw;
+}
+
+button#resetButton {
+  display: block;
+  margin: 5vw auto;
+  font-size: 1.5vw;
+}

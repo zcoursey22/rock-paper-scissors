@@ -1,9 +1,25 @@
 <!DOCTYPE html>
 <html>
   <head>
-
+    <title>Rock, Paper, Scissors</title>
+    <link rel="stylesheet" type="text/css" href="main.css">
   </head>
   <body>
+    <div class="gameContainer">
+      <span id="playerScore">Player:<br><span id="playerScoreNumber">0</span></span>
+      <span id="computerScore">Computer:<br><span id="computerScoreNumber">0</span></span>
+    </div>
+
+    <div class="buttonContainer">
+      <button class="button" id="rockButton">Rock</button>
+      <button class="button" id="paperButton">Paper</button>
+      <button class="button" id="scissorsButton">Scissors</button>
+    </div>
+
+    <span id="roundOutcome">Welcome to Rock, Paper, Scissors! Make a choice to start.</span>
+
+    <button class="button" id="resetButton">Reset</button>
+
     <script>
       function computerPlay() {
         let pick = Math.floor(Math.random() * 3);
@@ -12,76 +28,90 @@
         else return 'scissors';
       }
 
-      function playRound(playerMove, computerMove) {
-        playerMove = playerMove.toLowerCase();
-        computerMove = computerMove.toLowerCase();
-        let outcome;
+      function playRound(playerMove) {
+        let computerMove = computerPlay()
         if (playerMove === 'rock') {
           switch (computerMove) {
             case 'rock':
-              outcome = 'draw'
+              draw(playerMove, computerMove)
               break;
             case 'paper':
-              outcome = 'lose'
+              lose(playerMove, computerMove)
               break;
             default:
-              outcome = 'win'
+              win(playerMove, computerMove)
               break;
           }
         } else if (playerMove === 'paper') {
           switch (computerMove) {
             case 'rock':
-              outcome = 'win'
+              win(playerMove, computerMove)
               break;
             case 'paper':
-              outcome = 'draw'
+              draw(playerMove, computerMove)
               break;
             default:
-              outcome = 'lose'
+              lose(playerMove, computerMove)
               break;
             }
         } else {
           switch (computerMove) {
             case 'rock':
-              outcome = 'lose'
+              lose(playerMove, computerMove)
               break;
             case 'paper':
-              outcome = 'win'
+              win(playerMove, computerMove)
               break;
             default:
-              outcome = 'draw'
+              draw(playerMove, computerMove)
               break;
           }
         }
-      return outcome;
       }
 
-      function game() {
-        let playerScore = 0;
-        let computerScore = 0;
-        for (let i = 0; i < 5; i++) {
-          let playerMove = prompt('Choose rock, paper, or scissors:')
-          let computerMove = computerPlay()
-          if (playRound(playerMove, computerMove) === 'win') {
-            console.log(`You win! ${playerMove[0].toUpperCase() + playerMove.substring(1)} beats ${computerMove}.`);
-            playerScore++;
-          } else if (playRound(playerMove, computerMove) === 'lose') {
-            console.log(`You lose! ${computerMove[0].toUpperCase() + computerMove.substring(1)} beats ${playerMove}.`);
-            computerScore++;
-          } else {
-            console.log(`It's a draw! You both chose ${playerMove}.`);
-          }
-        }
-        if (playerScore > computerScore) {
-          console.log("You win the match!");
-        } else if (computerScore > playerScore) {
-          console.log("You lose the match!");
-        } else {
-          console.log("The match was a draw!")
-        }
+      function win(playerMove, computerMove) {
+        playerScore++;
+        document.getElementById('roundOutcome').textContent = `You win! ${playerMove[0].toUpperCase() + playerMove.substring(1)} beats ${computerMove}.`;
+        document.getElementById('playerScoreNumber').textContent = playerScore;
+        document.getElementById('playerScoreNumber').style.color = 'red';
+        document.getElementById('computerScoreNumber').style.color = 'black';
       }
 
-      game()
+      function lose(playerMove, computerMove) {
+        computerScore++;
+        document.getElementById('roundOutcome').textContent = `You lose! ${computerMove[0].toUpperCase() + computerMove.substring(1)} beats ${playerMove}.`;
+        document.getElementById('computerScoreNumber').textContent = computerScore;
+        document.getElementById('computerScoreNumber').style.color = 'red';
+        document.getElementById('playerScoreNumber').style.color = 'black';
+      }
+
+      function draw(playerMove, computerMove) {
+        document.getElementById('roundOutcome').textContent = `It's a draw! You both chose ${playerMove}.`;
+        document.getElementById('playerScoreNumber').style.color = 'black';
+        document.getElementById('computerScoreNumber').style.color = 'black';
+      }
+
+      let playerScore = 0;
+      let computerScore = 0;
+      document.getElementById("rockButton").addEventListener("click", function(){
+        playerMove = 'rock';
+        playRound(playerMove);
+      });
+      document.getElementById("paperButton").addEventListener("click", function(){
+        playerMove = 'paper';
+        playRound(playerMove);
+      });
+      document.getElementById("scissorsButton").addEventListener("click", function(){
+        playerMove = 'scissors';
+        playRound(playerMove);
+      });
+      document.getElementById("resetButton").addEventListener("click", function(){
+        document.getElementById('playerScoreNumber').textContent = 0;
+        document.getElementById('computerScoreNumber').textContent = 0;
+        document.getElementById('roundOutcome').textContent = 'Welcome to Rock, Paper, Scissors! Make a choice to start.';
+        document.getElementById('playerScoreNumber').style.color = 'black';
+        document.getElementById('computerScoreNumber').style.color = 'black';
+      });
 
     </script>
   </body>
